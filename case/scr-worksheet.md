@@ -23,7 +23,7 @@ So should we fund more people for Fit Out at Friday's vote?
 Approve funding for more people on Fit Out. Owner: Diane Torres. Date: Friday's vote. Cost: UNKNOWN. The table shows 130 for Fit Out, but I have not confirmed the units. Rejected option: do nothing and keep the plan as it is.
 
 ## Box 6. Reversal
-I would reverse this if the plan showed [UNKNOWN number] days of slack after Fit Out. I would look in the Gantt chart and the Rollup. If it did, I would withdraw the ask.
+I would reverse this if the plan showed [UNKNOWN number] days of slack between Build interior and Fit Out. I would look in the Gantt chart and the Rollup. If it did, I would withdraw the ask.
 
 ## Assumptions
 - The 19-day length comes from House 12 only.
