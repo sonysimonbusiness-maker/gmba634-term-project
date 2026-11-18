@@ -3,7 +3,7 @@
 Course: GMBA 634. Data: course house-schedule case (50 houses, illustrative, planned dates only).
 
 ## Headline line
-[Sony to write: Approve ___ to ___, because ___]
+Approve funding for more people on Fit Out to protect the handover date, because Fit Out is the last task and any earlier slip lands on the handover date.
 
 ## Box 1. Ask
 I am asking Diane Torres to approve funding more people for Fit Out at Friday's vote.
