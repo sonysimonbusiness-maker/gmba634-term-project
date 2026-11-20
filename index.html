@@ -18,116 +18,95 @@
     --muted: #46606c;
     --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
     --text: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ease: cubic-bezier(.2, .8, .2, 1);
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--text);
-    font-size: 1.0625rem;
-    line-height: 1.6;
-  }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--text); font-size: 1.0625rem; line-height: 1.6; }
   a { color: var(--supply); text-underline-offset: 3px; }
   a:hover { color: var(--ink); }
-  a:focus-visible, summary:focus-visible {
-    outline: 3px solid var(--ink);
-    outline-offset: 3px;
-  }
+  a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
 
-  header.top {
-    border-bottom: 1px solid var(--rule);
-  }
-  header.top .wrap {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 1rem; padding-bottom: 1rem; gap: 1rem; flex-wrap: wrap;
-    font-size: 0.95rem;
-  }
+  #progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: var(--supply); transform-origin: left; transform: scaleX(0); z-index: 10; }
+
+  header.top { border-bottom: 1px solid var(--rule); }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; padding-bottom: 1rem; gap: 1rem; flex-wrap: wrap; font-size: .95rem; }
   header.top strong { font-weight: 600; }
 
-  .hero { padding: 4.5rem 0 3.5rem; }
-  .hero h1 {
-    font-family: var(--display);
-    font-weight: 800;
-    font-size: clamp(2.6rem, 8vw, 6rem);
-    line-height: 0.95;
-    letter-spacing: 0.005em;
-    margin: 0 0 2rem;
-    max-width: 16ch;
-    text-transform: none;
-  }
-  .hero .answer {
-    max-width: 62ch;
-    font-size: 1.25rem;
-    line-height: 1.55;
-    margin: 0 0 2rem;
-  }
-  .jump { display: flex; gap: 2rem; flex-wrap: wrap; font-weight: 500; }
-  .jump a { text-decoration-thickness: 2px; }
+  .hero { padding: 4rem 0 3rem; }
+  .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 8vw, 6rem); line-height: .98; letter-spacing: .005em; margin: 0 0 1.75rem; max-width: 16ch; }
+  .mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-right: .22em; }
+  .w { display: inline-block; transform: translateY(105%); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i) * 80ms + 150ms); }
+  @keyframes rise { to { transform: none; } }
+  .hero .answer { max-width: 62ch; font-size: 1.2rem; line-height: 1.55; margin: 0 0 2.5rem; opacity: 0; animation: fade .8s ease forwards; animation-delay: 1.2s; }
+  @keyframes fade { to { opacity: 1; } }
+
+  .stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 1.5rem; margin: 0 0 1.75rem; padding: 0; list-style: none; }
+  .stats li { border-top: 5px solid var(--bar); padding-top: .75rem; opacity: 0; transform: translateY(14px); animation: statin .7s var(--ease) forwards; animation-delay: calc(1.5s + var(--i) * 120ms); }
+  @keyframes statin { to { opacity: 1; transform: none; } }
+  .stats a { display: block; color: var(--ink); text-decoration: none; }
+  .stats a:hover .label { text-decoration: underline; }
+  .stats .n { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 4.2vw, 3.6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stats .label { display: block; margin-top: .4rem; font-size: .92rem; line-height: 1.4; color: var(--muted); }
+  .s { --bar: var(--supply); }
+  .d { --bar: var(--demand); }
+  .hint { margin: 0; color: var(--muted); font-size: .92rem; }
 
   section.band { padding: 3.5rem 0 1rem; }
-  .band-head {
-    display: flex; align-items: center; gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-  .band-head::before {
-    content: ""; flex: none; width: 14px; height: 2.6rem; background: var(--bar);
-  }
-  .band-head h2 {
-    font-family: var(--display); font-weight: 800;
-    font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0;
-  }
-  .band-head p { margin: 0; color: var(--muted); }
-  .supply { --bar: var(--supply); }
-  .demand { --bar: var(--demand); }
+  .band-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+  .band-head::before { content: ""; flex: none; width: 14px; height: 2.6rem; background: var(--bar); transform: scaleY(0); transform-origin: bottom; transition: transform .7s var(--ease); }
+  .band-head.in::before { transform: scaleY(1); }
+  .band-head h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0; }
 
-  article.finding {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: 2.5rem;
-    padding: 2.25rem 0;
-    border-top: 1px solid var(--rule);
-    align-items: start;
-  }
-  article.finding h3 {
-    font-family: var(--display); font-weight: 700;
-    font-size: clamp(1.7rem, 3vw, 2.25rem); line-height: 1.08;
-    margin: 0 0 1rem;
-  }
+  article.finding { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.5rem; padding: 2.25rem 0 2.5rem; border-top: 1px solid var(--rule); align-items: start; scroll-margin-top: 1rem; }
+  article.finding h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.25rem); line-height: 1.08; margin: 0 0 1rem; }
   article.finding p { margin: 0 0 1rem; max-width: 52ch; }
-  .meta { color: var(--muted); font-size: 0.95rem; }
-  figure { margin: 0; }
-  figure img {
-    display: block; width: 100%; height: auto;
-    background: #fff; border: 1px solid var(--rule);
-  }
-  .links { display: flex; gap: 1.25rem; flex-wrap: wrap; font-weight: 500; font-size: 0.98rem; }
+  .meta { color: var(--muted); font-size: .95rem; }
+  .links { display: flex; gap: 1.25rem; flex-wrap: wrap; font-weight: 500; font-size: .98rem; }
 
-  .together { padding: 3.5rem 0 1rem; border-top: 1px solid var(--rule); margin-top: 2rem; }
-  .together h2, .method h2 {
-    font-family: var(--display); font-weight: 800;
-    font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0 0 1.25rem;
-  }
+  figure.chart { position: relative; margin: 0; min-height: 240px; background: #fff; border: 1px solid var(--rule); padding: .5rem .5rem .25rem; }
+  figure.chart svg { display: block; overflow: visible; }
+  figure.chart noscript img { display: block; width: 100%; height: auto; }
+  .tip { position: absolute; pointer-events: none; background: var(--ink); color: #fff; font-size: .85rem; line-height: 1.35; padding: .4rem .6rem; border-radius: 3px; white-space: nowrap; opacity: 0; transition: opacity .12s; z-index: 2; }
+  .tip.on { opacity: 1; }
+  .tip b { font-weight: 600; }
+
+  .line { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .in .line { stroke-dashoffset: 0; transition: stroke-dashoffset 1.9s cubic-bezier(.45, .1, .25, 1) var(--d, 0s); }
+  .lbl { opacity: 0; }
+  .in .lbl { opacity: 1; transition: opacity .6s ease var(--d, 1.6s); }
+  .bar { transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); }
+  .in .bar { transform: scaleY(1); transition: transform .9s var(--ease) var(--d, 0s); }
+
+  .together { padding: 3.5rem 0 1rem; border-top: 1px solid var(--rule); margin-top: 2rem; scroll-margin-top: 1rem; }
+  .together h2, .method h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0 0 1.25rem; }
   .together p, .method p, .method li { max-width: 66ch; }
-  .method { padding: 2rem 0 3rem; }
+  .method { padding: 2rem 0 3rem; scroll-margin-top: 1rem; }
   .method ul { padding-left: 1.2rem; margin: 0 0 1rem; }
 
-  footer {
-    border-top: 1px solid var(--rule); padding: 1.75rem 0 3rem;
-    font-size: 0.95rem; color: var(--muted);
-  }
+  footer { border-top: 1px solid var(--rule); padding: 1.75rem 0 3rem; font-size: .95rem; color: var(--muted); }
   footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
+  @media (max-width: 960px) { .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem 1.5rem; } }
   @media (max-width: 820px) {
     .hero { padding: 3rem 0 2.5rem; }
     article.finding { grid-template-columns: 1fr; gap: 1.25rem; }
   }
+  @media (max-width: 520px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .w, .hero .answer, .stats li { animation: none; opacity: 1; transform: none; }
+    .band-head::before { transform: none; transition: none; }
+    .line { stroke-dashoffset: 0; transition: none; }
+    .lbl { opacity: 1; transition: none; }
+    .bar { transform: none; transition: none; }
+  }
 </style>
 </head>
 <body>
+<div id="progress" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap">
@@ -137,69 +116,69 @@
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" data-step>
     <div class="wrap">
-      <h1>Is the US goods supply chain keeping up with what consumers buy?</h1>
+      <h1 id="title">Is the US goods supply chain keeping up with what consumers buy?</h1>
       <p class="answer">Five public datasets show where freight has moved and what shoppers have shifted to. None of them can show whether capacity kept up, so each finding below says what its data can and cannot tell you.</p>
-      <nav class="jump" aria-label="Sections">
-        <a href="#supply">Where goods move (3 findings)</a>
-        <a href="#demand">What consumers buy (2 findings)</a>
-        <a href="#method">How this was made</a>
-      </nav>
+
+      <ul class="stats" aria-label="The five findings in numbers">
+        <li class="s" style="--i:0"><a href="#ports"><span class="n" data-to="32" data-pre="&minus;" data-suf="%">&minus;32%</span><span class="label">West Coast container volume, 2021 to 2023</span></a></li>
+        <li class="s" style="--i:1"><a href="#border"><span class="n" data-to="31" data-pre="+" data-suf="%">+31%</span><span class="label">Truck crossings from Mexico, 2016 to 2025</span></a></li>
+        <li class="s" style="--i:2"><a href="#imports"><span class="n" data-to="13" data-pre="&minus;" data-suf="%">&minus;13%</span><span class="label">Container imports in 2023, then a full recovery</span></a></li>
+        <li class="d" style="--i:3"><a href="#ecom"><span class="n" data-from="7.7" data-to="17.9" data-dec="1" data-suf="%">17.9%</span><span class="label">E-commerce share of retail, up from 7.7% in 2016</span></a></li>
+        <li class="d" style="--i:4"><a href="#colorado"><span class="n" data-to="70" data-pre="+" data-suf="%">+70%</span><span class="label">Colorado retail sales, 2016 to 2025</span></a></li>
+      </ul>
+      <p class="hint">Presenting? The arrow keys step through the findings.</p>
     </div>
   </section>
 
-  <section class="band supply" id="supply" aria-labelledby="supply-h">
+  <section class="band s" id="supply" aria-labelledby="supply-h">
     <div class="wrap">
-      <div class="band-head">
-        <h2 id="supply-h">Where goods move</h2>
-      </div>
+      <div class="band-head"><h2 id="supply-h">Where goods move</h2></div>
 
-      <article class="finding">
+      <article class="finding" id="ports" data-step>
         <div>
           <h3>West Coast ports lost container volume</h3>
           <p>Container volume at West Coast ports fell 32% from 2021 to 2023 (20.2 million to 13.7 million TEUs), more than the Atlantic Coast (down 15%) or the Gulf Coast (down 7%).</p>
           <p class="meta">US DOT Bureau of Transportation Statistics, Port Data. Only the 25 ports that report in all eight years. Data ends in 2023.</p>
           <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/01-ports">Read the story boxes and data note</a></div>
         </div>
-        <figure>
-          <img src="datasets/01-ports/chart.png" alt="Line chart of container volume at 25 US ports by coast, 2016 to 2023. The Pacific Coast line rises to 20.2 million TEUs in 2021 and falls to 13.7 million in 2023. The Atlantic line peaks at 20.3 million in 2021 and falls to 17.2 million. The Gulf line stays near 4.5 million." width="1200" height="675" loading="lazy">
+        <figure class="chart" data-chart="ports" role="img" aria-label="Line chart of container volume at 25 US ports by coast, 2016 to 2023. The Pacific Coast line rises to 20.2 million TEUs in 2021 and falls to 13.7 million in 2023. The Atlantic line peaks at 20.3 million in 2021 and falls to 17.2 million. The Gulf line stays near 4.5 million.">
+          <noscript><img src="datasets/01-ports/chart.png" alt="Container volume at 25 US ports by coast, 2016 to 2023" width="1200" height="675"></noscript>
         </figure>
       </article>
 
-      <article class="finding">
+      <article class="finding" id="border" data-step>
         <div>
           <h3>Truck traffic shifted toward Mexico</h3>
           <p>Inbound truck crossings from Mexico rose 31% from 2016 to 2025 (5.8 million to 7.6 million), while crossings from Canada fell 10% (5.9 million to 5.3 million).</p>
           <p class="meta">US DOT Bureau of Transportation Statistics, Border Crossing Entry Data. Inbound crossings only. Full years only.</p>
           <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/02-border-crossings">Read the story boxes and data note</a></div>
         </div>
-        <figure>
-          <img src="datasets/02-border-crossings/chart.png" alt="Line chart of inbound truck crossings into the US, 2016 to 2025. The US-Mexico line rises from 5.8 million to 7.6 million. The US-Canada line falls from 5.9 million to 5.3 million." width="1200" height="675" loading="lazy">
+        <figure class="chart" data-chart="border" role="img" aria-label="Line chart of inbound truck crossings into the US, 2016 to 2025. The US-Mexico line rises from 5.8 million to 7.6 million. The US-Canada line falls from 5.9 million to 5.3 million.">
+          <noscript><img src="datasets/02-border-crossings/chart.png" alt="Inbound truck crossings into the US by border, 2016 to 2025" width="1200" height="675"></noscript>
         </figure>
       </article>
 
-      <article class="finding">
+      <article class="finding" id="imports" data-step>
         <div>
           <h3>The 2023 import dip recovered</h3>
           <p>US container imports fell 13% in 2023 (28.9 million to 25.1 million TEUs) and were back to 29.5 million by 2025.</p>
           <p class="meta">US DOT Bureau of Transportation Statistics, Supply Chain and Freight Indicators (series from MARAD). Full years only.</p>
           <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/03-container-imports">Read the story boxes and data note</a></div>
         </div>
-        <figure>
-          <img src="datasets/03-container-imports/chart.png" alt="Bar chart of containerized imports at US ports in million TEUs: 2019 24.6, 2020 25.3, 2021 28.8, 2022 28.9, 2023 25.1 (highlighted), 2024 29.1, 2025 29.5." width="1200" height="675" loading="lazy">
+        <figure class="chart" data-chart="imports" role="img" aria-label="Bar chart of containerized imports at US ports in million TEUs: 2019 24.6, 2020 25.3, 2021 28.8, 2022 28.9, 2023 25.1 highlighted, 2024 29.1, 2025 29.5.">
+          <noscript><img src="datasets/03-container-imports/chart.png" alt="Containerized imports at US ports, 2019 to 2025" width="1200" height="675"></noscript>
         </figure>
       </article>
     </div>
   </section>
 
-  <section class="band demand" id="demand" aria-labelledby="demand-h">
+  <section class="band d" id="demand" aria-labelledby="demand-h">
     <div class="wrap">
-      <div class="band-head">
-        <h2 id="demand-h">What consumers buy</h2>
-      </div>
+      <div class="band-head"><h2 id="demand-h">What consumers buy</h2></div>
 
-      <article class="finding">
+      <article class="finding" id="ecom" data-step>
         <div>
           <h3>Online buying settled at a higher share</h3>
           <p>E-commerce's share of US retail sales rose from 7.7% in early 2016 to 16.0% in Q2 2020, eased to 13.7% by Q2 2022, and reached 17.9% in 2026, more than double the 2016 share.</p>
@@ -209,26 +188,26 @@
             <a href="https://fred.stlouisfed.org/series/ECOMPCTSA">Open the FRED series</a>
           </div>
         </div>
-        <figure>
-          <img src="datasets/04-ecommerce-share/chart.png" alt="Line chart of e-commerce share of US retail sales by quarter from 2016 to 2026. It rises from 7.7 percent to a spike of 16.0 percent in Q2 2020, dips to 13.7 percent in Q2 2022, then climbs to 17.9 percent." width="1200" height="675" loading="lazy">
+        <figure class="chart" data-chart="ecom" role="img" aria-label="Line chart of e-commerce share of US retail sales by quarter from 2016 to 2026. It rises from 7.7 percent to a spike of 16.0 percent in Q2 2020, dips to 13.7 percent in Q2 2022, then climbs to 17.9 percent.">
+          <noscript><img src="datasets/04-ecommerce-share/chart.png" alt="E-commerce share of US retail sales, 2016 to 2026" width="1200" height="675"></noscript>
         </figure>
       </article>
 
-      <article class="finding">
+      <article class="finding" id="colorado" data-step>
         <div>
           <h3>Colorado retail kept growing, more slowly</h3>
           <p>Retail sales in 11 Colorado counties grew 70% from 2016 to 2025 ($157 billion to $266 billion), but growth slowed to 0.5%, 1.3% and 3.2% in 2023, 2024 and 2025 after an 11.5% jump in 2022.</p>
           <p class="meta">Colorado Department of Revenue via data.colorado.gov. Eleven counties only. Current dollars, not adjusted for inflation.</p>
           <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/05-colorado-retail">Read the story boxes and data note</a></div>
         </div>
-        <figure>
-          <img src="datasets/05-colorado-retail/chart.png" alt="Bar chart of retail sales in 11 Colorado counties in billion dollars: 2016 157, 2017 166, 2018 176, 2019 192, 2020 195, 2021 228, 2022 254, 2023 255, 2024 258, 2025 266." width="1200" height="675" loading="lazy">
+        <figure class="chart" data-chart="colorado" role="img" aria-label="Bar chart of retail sales in 11 Colorado counties in billion dollars: 2016 157, 2017 166, 2018 176, 2019 192, 2020 195, 2021 228, 2022 254, 2023 255, 2024 258, 2025 266.">
+          <noscript><img src="datasets/05-colorado-retail/chart.png" alt="Retail sales in 11 Colorado counties, 2016 to 2025" width="1200" height="675"></noscript>
         </figure>
       </article>
     </div>
   </section>
 
-  <section class="together">
+  <section class="together" data-step>
     <div class="wrap">
       <h2>What the five say together</h2>
       <p>Freight has moved: away from West Coast ports and toward Gulf and Atlantic ports and the Mexico border. Consumers keep shifting toward online buying while overall retail growth slows.</p>
@@ -236,7 +215,7 @@
     </div>
   </section>
 
-  <section class="method" id="method">
+  <section class="method" id="method" data-step>
     <div class="wrap">
       <h2>How this was made</h2>
       <p>All data is public. Nothing here is confidential.</p>
@@ -256,5 +235,262 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var INK = "#10303f", TEAL = "#0e6e7c", AMBER = "#d9822b", GREYB = "#6b7f89", YEL = "#f0b323", RULE = "#c9d1d4", MUTED = "#46606c";
+  var NS = "http://www.w3.org/2000/svg";
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  /* ---------- data (from the CSVs in datasets/) ---------- */
+  var DATA = {
+    ports: {
+      xs: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+      series: [
+        { name: "Pacific Coast", short: "Pacific", color: TEAL, vals: [17.30, 17.78, 18.75, 17.84, 18.68, 20.22, 15.84, 13.67] },
+        { name: "Atlantic Coast", short: "Atlantic", color: AMBER, vals: [15.23, 16.06, 16.85, 17.17, 17.51, 20.30, 19.79, 17.23] },
+        { name: "Gulf Coast", short: "Gulf", color: GREYB, vals: [3.37, 3.54, 3.78, 4.32, 4.54, 4.82, 4.48, 4.49] }
+      ],
+      ymin: 0, ymax: 25, step: 5, unit: " million TEUs", dec: 1, tick: 1
+    },
+    border: {
+      xs: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+      series: [
+        { name: "Mexico", short: "Mexico", color: AMBER, vals: [5.802781, 6.039774, 6.310903, 6.440255, 6.366384, 6.949300, 7.259106, 7.356659, 7.617207, 7.589315] },
+        { name: "Canada", short: "Canada", color: TEAL, vals: [5.877938, 5.846597, 5.830926, 5.681158, 5.214333, 5.569786, 5.490878, 5.526062, 5.550630, 5.267459] }
+      ],
+      ymin: 4, ymax: 8, step: 1, unit: " million trucks", dec: 2, tick: 1
+    },
+    imports: {
+      xs: [2019, 2020, 2021, 2022, 2023, 2024, 2025],
+      vals: [24.62, 25.32, 28.81, 28.89, 25.13, 29.06, 29.49],
+      hi: 4, color: TEAL, hiColor: AMBER, ymax: 35, step: 5, dec: 1
+    },
+    ecom: {
+      vals: [7.7,7.8,8.0,8.2,8.4,8.7,8.9,9.1,9.3,9.5,9.6,9.8,9.9,10.1,10.6,10.9,11.7,16.0,14.5,14.7,14.5,14.2,14.1,14.1,13.9,13.7,13.9,14.2,14.7,15.3,15.6,15.9,16.4,16.6,16.8,16.9,16.8,16.9,17.1,17.3,17.7,17.8,17.9],
+      marks: [[0, "7.7%", -10], [17, "16.0% in Q2 2020", -10], [25, "13.7% in Q2 2022", 18], [42, "17.9%", -10]],
+      ymin: 0, ymax: 20, step: 5
+    },
+    colorado: {
+      xs: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+      vals: [157.05, 165.71, 175.56, 191.72, 194.75, 227.60, 253.81, 255.07, 258.30, 266.47],
+      color: YEL, ymax: 300, step: 100, dec: 0
+    }
+  };
+
+  /* ---------- helpers ---------- */
+  function quarterLabel(i) { return "Q" + (1 + (i % 4)) + " " + (2016 + Math.floor(i / 4)); }
+  function sizeFor(w) { return w < 520 ? Math.max(260, Math.round(w * .78)) : Math.min(430, Math.round(w * .56)); }
+  function tipFor(fig) {
+    var t = fig.querySelector(".tip");
+    if (!t) { t = document.createElement("div"); t.className = "tip"; fig.appendChild(t); }
+    return t;
+  }
+  function grid(svg, m, w, h, ymin, ymax, step, fmt, ys) {
+    for (var v = ymin; v <= ymax + 1e-9; v += step) {
+      var y = ys(v);
+      el("line", { x1: m.l, x2: w - m.r, y1: y, y2: y, stroke: RULE, "stroke-width": 1 }, svg);
+      var t = el("text", { x: m.l - 8, y: y + 4, "text-anchor": "end", "font-size": 12, fill: MUTED }, svg);
+      t.textContent = fmt(v);
+    }
+  }
+
+  /* ---------- line chart ---------- */
+  function lineChart(fig, cfg, labels, w) {
+    var narrow = w < 520, h = sizeFor(w);
+    var m = { l: 40, r: narrow ? 70 : 118, t: 18, b: 30 };
+    var n = cfg.series[0].vals.length;
+    var xs = function (i) { return m.l + i * (w - m.l - m.r) / (n - 1); };
+    var ys = function (v) { return m.t + (cfg.ymax - v) * (h - m.t - m.b) / (cfg.ymax - cfg.ymin); };
+    var svg = el("svg", { width: w, height: h, viewBox: "0 0 " + w + " " + h, "aria-hidden": "true" });
+    grid(svg, m, w, h, cfg.ymin, cfg.ymax, cfg.step, function (v) { return String(v); }, ys);
+    for (var i = 0; i < n; i += cfg.tick) {
+      var tx = el("text", { x: xs(i), y: h - 8, "text-anchor": "middle", "font-size": 12, fill: MUTED }, svg);
+      tx.textContent = labels(i);
+    }
+    cfg.series.forEach(function (s, k) {
+      var d = s.vals.map(function (v, i) { return (i ? "L" : "M") + xs(i).toFixed(1) + " " + ys(v).toFixed(1); }).join(" ");
+      el("path", { d: d, pathLength: 1, class: "line", stroke: s.color, style: "--d:" + (k * 0.25) + "s" }, svg);
+      if (s.name) {
+        var last = s.vals[n - 1];
+        el("circle", { cx: xs(n - 1), cy: ys(last), r: 4.5, fill: s.color, class: "lbl", style: "--d:1.7s" }, svg);
+        var t = el("text", { x: xs(n - 1) + 9, y: ys(last) + 4, "font-size": 13, "font-weight": 600, fill: s.color, class: "lbl", style: "--d:1.8s" }, svg);
+        t.textContent = (narrow ? s.short : s.name) + " " + last.toFixed(cfg.dec);
+      }
+    });
+    (cfg.marks || []).forEach(function (mk) {
+      var v = cfg.series[0].vals[mk[0]];
+      el("circle", { cx: xs(mk[0]), cy: ys(v), r: 5, fill: YEL, stroke: INK, "stroke-width": 1.5, class: "lbl", style: "--d:1.7s" }, svg);
+      var t = el("text", { x: xs(mk[0]), y: ys(v) + mk[2], "text-anchor": mk[0] === 0 ? "start" : (mk[0] === n - 1 ? "end" : "middle"), "font-size": 12, "font-weight": 600, fill: INK, class: "lbl", style: "--d:1.8s" }, svg);
+      t.textContent = mk[1];
+    });
+    var guide = el("line", { y1: m.t, y2: h - m.b, stroke: INK, "stroke-width": 1, opacity: 0 }, svg);
+    var cover = el("rect", { x: m.l, y: 0, width: w - m.l - m.r, height: h, fill: "transparent" }, svg);
+    var tip = tipFor(fig);
+    cover.addEventListener("pointermove", function (e) {
+      var r = svg.getBoundingClientRect();
+      var i = Math.max(0, Math.min(n - 1, Math.round(((e.clientX - r.left) - m.l) / ((w - m.l - m.r) / (n - 1)))));
+      guide.setAttribute("x1", xs(i)); guide.setAttribute("x2", xs(i)); guide.setAttribute("opacity", .35);
+      var rows = cfg.series.map(function (s) {
+        return (s.name ? s.name + ": " : "") + "<b>" + s.vals[i].toFixed(cfg.dec) + (cfg.unit || "") + "</b>";
+      }).join("<br>");
+      tip.innerHTML = "<b>" + (cfg.tipLabel ? cfg.tipLabel(i) : labels(i)) + "</b><br>" + rows;
+      tip.classList.add("on");
+      var x = xs(i) + 16;
+      tip.style.left = Math.min(x, w - tip.offsetWidth) + "px";
+      tip.style.top = "10px";
+    });
+    cover.addEventListener("pointerleave", function () { guide.setAttribute("opacity", 0); tip.classList.remove("on"); });
+    return svg;
+  }
+
+  /* ---------- bar chart ---------- */
+  function barChart(fig, cfg, w) {
+    var h = sizeFor(w), narrow = w < 520;
+    var m = { l: 40, r: 8, t: 24, b: 30 };
+    var n = cfg.vals.length;
+    var band = (w - m.l - m.r) / n;
+    var ys = function (v) { return m.t + (cfg.ymax - v) * (h - m.t - m.b) / cfg.ymax; };
+    var svg = el("svg", { width: w, height: h, viewBox: "0 0 " + w + " " + h, "aria-hidden": "true" });
+    grid(svg, m, w, h, 0, cfg.ymax, cfg.step, function (v) { return String(v); }, ys);
+    cfg.vals.forEach(function (v, i) {
+      var bw = band * .68, x = m.l + i * band + (band - bw) / 2;
+      var fill = (cfg.hi === i) ? cfg.hiColor : cfg.color;
+      el("rect", { x: x, y: ys(v), width: bw, height: ys(0) - ys(v), fill: fill, class: "bar", style: "--d:" + (i * 0.07) + "s" }, svg);
+      var t = el("text", { x: x + bw / 2, y: ys(v) - 6, "text-anchor": "middle", "font-size": narrow ? 10 : 12, "font-weight": 600, fill: INK, class: "lbl", style: "--d:" + (0.7 + i * 0.07) + "s" }, svg);
+      t.textContent = v.toFixed(cfg.dec);
+      var xl = el("text", { x: x + bw / 2, y: h - 8, "text-anchor": "middle", "font-size": 12, fill: MUTED }, svg);
+      xl.textContent = narrow ? String(cfg.xs[i]).slice(2) : cfg.xs[i];
+    });
+    return svg;
+  }
+
+  /* ---------- render and animate ---------- */
+  var builders = {
+    ports: function (f, w) { return lineChart(f, DATA.ports, function (i) { return DATA.ports.xs[i]; }, w); },
+    border: function (f, w) { return lineChart(f, DATA.border, function (i) { return DATA.border.xs[i]; }, w); },
+    imports: function (f, w) { return barChart(f, DATA.imports, w); },
+    ecom: function (f, w) {
+      var d = DATA.ecom;
+      var cfg = { series: [{ name: "", color: INK, vals: d.vals }], ymin: d.ymin, ymax: d.ymax, step: d.step, unit: "%", dec: 1, tick: 4, marks: d.marks, tipLabel: quarterLabel };
+      return lineChart(f, cfg, function (i) { return String(2016 + i / 4); }, w);
+    },
+    colorado: function (f, w) { return barChart(f, DATA.colorado, w); }
+  };
+
+  var figs = Array.prototype.slice.call(document.querySelectorAll("figure.chart"));
+  figs.forEach(function (fig) { fig._w = 0; fig._played = false; });
+
+  function draw(fig) {
+    var w = Math.floor(fig.clientWidth - 16);
+    if (w < 200 || Math.abs(w - fig._w) < 2) return;
+    fig._w = w;
+    var old = fig.querySelector("svg");
+    if (old) fig.removeChild(old);
+    var svg = builders[fig.dataset.chart](fig, w);
+    fig.insertBefore(svg, fig.firstChild);
+    if (fig._played) fig.classList.add("in");
+  }
+  function play(fig) {
+    if (fig._played) return;
+    fig._played = true;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { fig.classList.add("in"); }); });
+  }
+
+  figs.forEach(draw);
+  var resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { figs.forEach(draw); }, 120);
+  });
+
+  /* reveal on scroll */
+  var heads = Array.prototype.slice.call(document.querySelectorAll(".band-head"));
+  if (reduce || !("IntersectionObserver" in window)) {
+    figs.forEach(play);
+    heads.forEach(function (hd) { hd.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        if (en.target.tagName === "FIGURE") play(en.target); else en.target.classList.add("in");
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.3 });
+    figs.forEach(function (f) { io.observe(f); });
+    heads.forEach(function (hd) { io.observe(hd); });
+  }
+
+  /* ---------- headline words ---------- */
+  var h1 = document.getElementById("title");
+  if (!reduce) {
+    var words = h1.textContent.trim().split(/\s+/);
+    h1.setAttribute("aria-label", words.join(" "));
+    h1.innerHTML = words.map(function (wd, i) {
+      return '<span class="mask" aria-hidden="true"><span class="w" style="--i:' + i + '">' + wd + "</span></span>";
+    }).join(" ");
+  }
+
+  /* ---------- count-up numbers ---------- */
+  var nums = Array.prototype.slice.call(document.querySelectorAll(".stats .n"));
+  function fmtNum(n, v) {
+    var dec = +n.dataset.dec || 0;
+    return (n.dataset.pre || "") + v.toFixed(dec) + (n.dataset.suf || "");
+  }
+  if (!reduce) {
+    nums.forEach(function (n) {
+      n._to = +n.dataset.to;
+      n._from = n.dataset.from ? +n.dataset.from : 0;
+      n.innerHTML = fmtNum(n, n._from);
+    });
+    setTimeout(function () {
+      var start = null, dur = 1500;
+      function tick(ts) {
+        if (start === null) start = ts;
+        var p = Math.min(1, (ts - start) / dur), e = 1 - Math.pow(1 - p, 3);
+        nums.forEach(function (n) { n.innerHTML = fmtNum(n, n._from + (n._to - n._from) * e); });
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, 1500);
+  }
+
+  /* ---------- progress bar ---------- */
+  var bar = document.getElementById("progress");
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- present with the arrow keys ---------- */
+  var steps = Array.prototype.slice.call(document.querySelectorAll("[data-step]"));
+  function current() {
+    var best = 0, bestD = Infinity;
+    steps.forEach(function (s, i) {
+      var d = Math.abs(s.getBoundingClientRect().top - 16);
+      if (d < bestD) { bestD = d; best = i; }
+    });
+    return best;
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var next = ["ArrowDown", "ArrowRight", "PageDown"].indexOf(e.key) > -1;
+    var prev = ["ArrowUp", "ArrowLeft", "PageUp"].indexOf(e.key) > -1;
+    if (!next && !prev) return;
+    e.preventDefault();
+    var i = Math.max(0, Math.min(steps.length - 1, current() + (next ? 1 : -1)));
+    steps[i].scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  });
+})();
+</script>
 </body>
 </html>
