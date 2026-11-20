@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is the US goods supply chain keeping up with what consumers buy?</title>
+<meta name="description" content="Five real public datasets, one chart and one claim for each, on one question about US freight and retail. GMBA 634 term project.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #10303f;
+    --paper: #f4f6f5;
+    --supply: #0e6e7c;
+    --demand: #f0b323;
+    --rule: #c9d1d4;
+    --muted: #46606c;
+    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --text: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  a { color: var(--supply); text-underline-offset: 3px; }
+  a:hover { color: var(--ink); }
+  a:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+  header.top {
+    border-bottom: 1px solid var(--rule);
+  }
+  header.top .wrap {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1rem; padding-bottom: 1rem; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.95rem;
+  }
+  header.top strong { font-weight: 600; }
+
+  .hero { padding: 4.5rem 0 3.5rem; }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 8vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.005em;
+    margin: 0 0 2rem;
+    max-width: 16ch;
+    text-transform: none;
+  }
+  .hero .answer {
+    max-width: 62ch;
+    font-size: 1.25rem;
+    line-height: 1.55;
+    margin: 0 0 2rem;
+  }
+  .jump { display: flex; gap: 2rem; flex-wrap: wrap; font-weight: 500; }
+  .jump a { text-decoration-thickness: 2px; }
+
+  section.band { padding: 3.5rem 0 1rem; }
+  .band-head {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .band-head::before {
+    content: ""; flex: none; width: 14px; height: 2.6rem; background: var(--bar);
+  }
+  .band-head h2 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0;
+  }
+  .band-head p { margin: 0; color: var(--muted); }
+  .supply { --bar: var(--supply); }
+  .demand { --bar: var(--demand); }
+
+  article.finding {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 2.5rem;
+    padding: 2.25rem 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  article.finding h3 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.7rem, 3vw, 2.25rem); line-height: 1.08;
+    margin: 0 0 1rem;
+  }
+  article.finding p { margin: 0 0 1rem; max-width: 52ch; }
+  .meta { color: var(--muted); font-size: 0.95rem; }
+  figure { margin: 0; }
+  figure img {
+    display: block; width: 100%; height: auto;
+    background: #fff; border: 1px solid var(--rule);
+  }
+  .links { display: flex; gap: 1.25rem; flex-wrap: wrap; font-weight: 500; font-size: 0.98rem; }
+
+  .together { padding: 3.5rem 0 1rem; border-top: 1px solid var(--rule); margin-top: 2rem; }
+  .together h2, .method h2 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0 0 1.25rem;
+  }
+  .together p, .method p, .method li { max-width: 66ch; }
+  .method { padding: 2rem 0 3rem; }
+  .method ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+
+  footer {
+    border-top: 1px solid var(--rule); padding: 1.75rem 0 3rem;
+    font-size: 0.95rem; color: var(--muted);
+  }
+  footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+  @media (max-width: 820px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    article.finding { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <strong>Sony, GMBA 634 term project</strong>
+    <a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project">View the GitHub repository</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Is the US goods supply chain keeping up with what consumers buy?</h1>
+      <p class="answer">Five public datasets show where freight has moved and what shoppers have shifted to. None of them can show whether capacity kept up, so each finding below says what its data can and cannot tell you.</p>
+      <nav class="jump" aria-label="Sections">
+        <a href="#supply">Where goods move (3 findings)</a>
+        <a href="#demand">What consumers buy (2 findings)</a>
+        <a href="#method">How this was made</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="band supply" id="supply" aria-labelledby="supply-h">
+    <div class="wrap">
+      <div class="band-head">
+        <h2 id="supply-h">Where goods move</h2>
+      </div>
+
+      <article class="finding">
+        <div>
+          <h3>West Coast ports lost container volume</h3>
+          <p>Container volume at West Coast ports fell 32% from 2021 to 2023 (20.2 million to 13.7 million TEUs), more than the Atlantic Coast (down 15%) or the Gulf Coast (down 7%).</p>
+          <p class="meta">US DOT Bureau of Transportation Statistics, Port Data. Only the 25 ports that report in all eight years. Data ends in 2023.</p>
+          <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/01-ports">Read the story boxes and data note</a></div>
+        </div>
+        <figure>
+          <img src="datasets/01-ports/chart.png" alt="Line chart of container volume at 25 US ports by coast, 2016 to 2023. The Pacific Coast line rises to 20.2 million TEUs in 2021 and falls to 13.7 million in 2023. The Atlantic line peaks at 20.3 million in 2021 and falls to 17.2 million. The Gulf line stays near 4.5 million." width="1200" height="675" loading="lazy">
+        </figure>
+      </article>
+
+      <article class="finding">
+        <div>
+          <h3>Truck traffic shifted toward Mexico</h3>
+          <p>Inbound truck crossings from Mexico rose 31% from 2016 to 2025 (5.8 million to 7.6 million), while crossings from Canada fell 10% (5.9 million to 5.3 million).</p>
+          <p class="meta">US DOT Bureau of Transportation Statistics, Border Crossing Entry Data. Inbound crossings only. Full years only.</p>
+          <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/02-border-crossings">Read the story boxes and data note</a></div>
+        </div>
+        <figure>
+          <img src="datasets/02-border-crossings/chart.png" alt="Line chart of inbound truck crossings into the US, 2016 to 2025. The US-Mexico line rises from 5.8 million to 7.6 million. The US-Canada line falls from 5.9 million to 5.3 million." width="1200" height="675" loading="lazy">
+        </figure>
+      </article>
+
+      <article class="finding">
+        <div>
+          <h3>The 2023 import dip recovered</h3>
+          <p>US container imports fell 13% in 2023 (28.9 million to 25.1 million TEUs) and were back to 29.5 million by 2025.</p>
+          <p class="meta">US DOT Bureau of Transportation Statistics, Supply Chain and Freight Indicators (series from MARAD). Full years only.</p>
+          <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/03-container-imports">Read the story boxes and data note</a></div>
+        </div>
+        <figure>
+          <img src="datasets/03-container-imports/chart.png" alt="Bar chart of containerized imports at US ports in million TEUs: 2019 24.6, 2020 25.3, 2021 28.8, 2022 28.9, 2023 25.1 (highlighted), 2024 29.1, 2025 29.5." width="1200" height="675" loading="lazy">
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="band demand" id="demand" aria-labelledby="demand-h">
+    <div class="wrap">
+      <div class="band-head">
+        <h2 id="demand-h">What consumers buy</h2>
+      </div>
+
+      <article class="finding">
+        <div>
+          <h3>Online buying settled at a higher share</h3>
+          <p>E-commerce's share of US retail sales rose from 7.7% in early 2016 to 16.0% in Q2 2020, eased to 13.7% by Q2 2022, and reached 17.9% in 2026, more than double the 2016 share.</p>
+          <p class="meta">Federal Reserve Bank of St. Louis (FRED), series ECOMPCTSA from the US Census Bureau. Quarterly, seasonally adjusted. The data file is not stored here under FRED's terms.</p>
+          <div class="links">
+            <a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/04-ecommerce-share">Read the story boxes and data note</a>
+            <a href="https://fred.stlouisfed.org/series/ECOMPCTSA">Open the FRED series</a>
+          </div>
+        </div>
+        <figure>
+          <img src="datasets/04-ecommerce-share/chart.png" alt="Line chart of e-commerce share of US retail sales by quarter from 2016 to 2026. It rises from 7.7 percent to a spike of 16.0 percent in Q2 2020, dips to 13.7 percent in Q2 2022, then climbs to 17.9 percent." width="1200" height="675" loading="lazy">
+        </figure>
+      </article>
+
+      <article class="finding">
+        <div>
+          <h3>Colorado retail kept growing, more slowly</h3>
+          <p>Retail sales in 11 Colorado counties grew 70% from 2016 to 2025 ($157 billion to $266 billion), but growth slowed to 0.5%, 1.3% and 3.2% in 2023, 2024 and 2025 after an 11.5% jump in 2022.</p>
+          <p class="meta">Colorado Department of Revenue via data.colorado.gov. Eleven counties only. Current dollars, not adjusted for inflation.</p>
+          <div class="links"><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/datasets/05-colorado-retail">Read the story boxes and data note</a></div>
+        </div>
+        <figure>
+          <img src="datasets/05-colorado-retail/chart.png" alt="Bar chart of retail sales in 11 Colorado counties in billion dollars: 2016 157, 2017 166, 2018 176, 2019 192, 2020 195, 2021 228, 2022 254, 2023 255, 2024 258, 2025 266." width="1200" height="675" loading="lazy">
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="together">
+    <div class="wrap">
+      <h2>What the five say together</h2>
+      <p>Freight has moved: away from West Coast ports and toward Gulf and Atlantic ports and the Mexico border. Consumers keep shifting toward online buying while overall retail growth slows.</p>
+      <p>These datasets cannot measure whether capacity is keeping up with demand. Each one shows only one side.</p>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <div class="wrap">
+      <h2>How this was made</h2>
+      <p>All data is public. Nothing here is confidential.</p>
+      <ul>
+        <li>I used Claude, an AI assistant, to pull the data through public interfaces, compute the numbers, draw the charts and draft the claims and story boxes.</li>
+        <li>I review, correct and own the final text.</li>
+        <li>My earlier work on a course case used made-up course data, so it sits in the archive folder and is not part of this portfolio.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>GMBA 634 term project, public data only</span>
+    <a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project">GitHub repository</a>
+  </div>
+</footer>
+
+</body>
+</html>
