@@ -4,6 +4,14 @@ This repo holds my GMBA 634 term project: five real public datasets, one chart a
 
 Site: [my live site](https://sonysimonbusiness-maker.github.io/gmba634-term-project/)
 
+## The project package
+1. **Written executive case** (situation, complication, resolution): [case/executive-case.md](case/executive-case.md)
+2. **AI use and output check**, with a script that recomputes every headline figure: [ai-check/](ai-check/)
+3. **Tableau charts:** in progress, to be linked here.
+4. **This repo and the live site** above link all of it.
+
+AI use is disclosed in each folder and on the site. Claude drafted the case, charts and site; I own the question, audience and recommendation.
+
 ## Supply side: where goods move
 | # | Claim | Chart |
 |---|-------|-------|
