@@ -47,7 +47,7 @@ A plan built on last year's lane mix can be badly placed when the mix moves this
 
 | Finding | Folder | Chart |
 |---|---|---|
-| Mexico +31%, Canada -10% | [datasets/02-border-crossings](../datasets/02-border-crossings/) | Line chart of inbound trucks |
+| Mexico +31%, Canada -10% | [datasets/02-border-crossings](../datasets/02-border-crossings/) | [Tableau line chart](../datasets/02-border-crossings/tableau-chart.png) |
 | Pacific -32%, Atlantic -15%, Gulf -7% (2021 to 2023) | [datasets/01-ports](../datasets/01-ports/) | Line chart by coast |
 | Imports -13% in 2023 | [datasets/03-container-imports](../datasets/03-container-imports/) | Line chart |
 | E-commerce 7.7% to 17.9% | [datasets/04-ecommerce-share](../datasets/04-ecommerce-share/) | Line chart (FRED link) |
