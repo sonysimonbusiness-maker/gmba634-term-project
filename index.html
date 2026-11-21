@@ -53,6 +53,14 @@
   .d { --bar: var(--demand); }
   .hint { margin: 0; color: var(--muted); font-size: .92rem; }
 
+
+  .pkg { margin: 2rem 0 0; padding: 1.1rem 0 0; border-top: 1px solid var(--rule); }
+  .pkg h2 { font-size: 1rem; margin: 0 0 .6rem; font-weight: 600; }
+  .pkg ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: .6rem 1.5rem; }
+  .pkg li { font-size: .95rem; line-height: 1.45; color: var(--muted); }
+  .pkg a { font-weight: 600; color: var(--ink); text-underline-offset: 3px; }
+  .pkg .todo { font-weight: 600; color: var(--ink); }
+
   section.band { padding: 3.5rem 0 1rem; }
   .band-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
   .band-head::before { content: ""; flex: none; width: 14px; height: 2.6rem; background: var(--bar); transform: scaleY(0); transform-origin: bottom; transition: transform .7s var(--ease); }
@@ -129,6 +137,15 @@
         <li class="d" style="--i:4"><a href="#colorado"><span class="n" data-to="70" data-pre="+" data-suf="%">+70%</span><span class="label">Colorado retail sales, 2016 to 2025</span></a></li>
       </ul>
       <p class="hint">Presenting? The arrow keys step through the findings.</p>
+      <nav class="pkg" aria-label="Project deliverables">
+        <h2>The project package</h2>
+        <ul>
+          <li><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/case/executive-case.md">Written executive case</a><br>Situation, complication, resolution, with a recommendation and a reversal test.</li>
+          <li><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project/tree/main/ai-check">AI use and output check</a><br>A script that recomputes every headline figure, and a log of errors found.</li>
+          <li><span class="todo">Tableau charts</span><br>In progress. They will be linked here when published.</li>
+          <li><a href="https://github.com/sonysimonbusiness-maker/gmba634-term-project">GitHub repository</a><br>All data files, charts and story boxes.</li>
+        </ul>
+      </nav>
     </div>
   </section>
 
