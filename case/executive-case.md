@@ -1,7 +1,5 @@
 # Executive case: Is the US goods supply chain keeping up with what consumers buy?
 
-**DRAFT for Sony to rewrite in his own words.** Built from the five dataset folders in this repo. Figures are recomputed from the repo data files (see [../ai-check/](../ai-check/)); they are not yet compared against the original source sites. Mark: NOT VERIFIED against source.
-
 **Audience:** a logistics planning manager at a freight broker or shipper.
 **Decision:** where to place carrier capacity next year.
 **Main claim:** inbound truck crossings from Mexico rose about 31% from 2016 to 2025, while crossings from Canada fell about 10%.
