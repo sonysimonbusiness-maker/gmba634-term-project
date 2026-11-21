@@ -40,24 +40,27 @@ Not covered by the script: the e-commerce share (7.7%, 16.0%, 13.7%, 17.9%), whi
 | In chat, the Pacific -32% was described as covering 2016 to 2023 | Re-running the numbers: -32% is 2021 to 2023; 2016 to 2023 is -21% | The repo wording was already correct; the chat wording was not used |
 | The ports file mixes units in its volume column | Inspected the data | Filtered to container TEUs and compared only the 25 ports present in all eight years |
 
-## Check 3: figures against the original sources (mine to do)
+## Check 3: figures against the original sources
 
-Not yet done. Open each source, find the number, and tick the box. If a number differs, tell me and I will fix the repo.
+Run on Nov 21, 2026. Claude re-queried the original source sites (FRED and the BTS open-data API) and compared the results with the repo values. I (Sony) have not yet opened the sources myself.
 
-| Figure | Where to look | My value | Source value | Done |
+| Figure | Source | Repo value | Source value | Result |
 |---|---|---|---|---|
-| E-commerce share, Q1 2016 7.7%, Q2 2020 16.0%, Q2 2022 13.7%, Q3 2026 17.9% | FRED series ECOMPCTSA | | | [ ] |
-| Mexico trucks 2016 and 2025 (5.80 and 7.59 million) | BTS Border Crossing Entry Data | | | [ ] |
-| Pacific Coast 2021 and 2023 (20.2 and 13.7 million TEUs) | BTS port performance data | | | [ ] |
-| Container imports 2022 and 2023 (28.9 and 25.1 million TEUs) | Dataset 3 source, linked in its folder | | | [ ] |
-| Colorado retail 2016 and 2025 ($157B and $266B) | Dataset 5 source, linked in its folder | | | [ ] |
+| E-commerce share: Q1 2016, Q2 2020, Q2 2022, Q3 2026 | FRED series ECOMPCTSA | 7.7, 16.0, 13.7, 17.9 | 7.7, 16.0, 13.7, 17.9 | Match |
+| Mexico trucks 2016 and 2025 | BTS Border Crossing Entry Data (keg4-3bc2) | 5,802,781 and 7,589,315 | 5,802,781 and 7,589,315 | Match, exact |
+| Canada trucks 2016 and 2025 | BTS Border Crossing Entry Data | 5,877,938 and 5,267,459 | 5,877,938 and 5,267,459 | Match, exact |
+| Container imports 2022 and 2023 (TEUs) | BTS Supply Chain and Freight Indicators (y5ut-ibwt) | 28,891,318.72 and 25,127,862.47 | 28,891,318.72 and 25,127,862.47 | Match, exact |
+| Pacific, Atlantic, Gulf port totals (25 ports) | BTS Port Data (5rpz-kgm9) | see datasets/01-ports | Not re-queried. The data file came from a direct download of the BTS file. | **Not rechecked** |
+| Colorado retail, 11 counties, 2016 and 2025 | data.colorado.gov (fe4v-h3pk) | $157B and $266B | The query failed, so not re-queried | **Not rechecked** |
+
+Still open for me to do by hand: the ports totals and the Colorado totals.
 
 ## What I do not trust AI for here
 
 - Causes. The data shows that volumes moved, not why.
 - Any claim about one company's lanes, costs or contracts. The public data has none.
-- Numbers it read through a summarized fetch, until I compare them with the source (Check 3).
+- Numbers it read through a summarized fetch. Check 3 compared four of the six groups with the sources; ports and Colorado are still open.
 
 ## Limits of this check
 
-Check 1 was run by a script that Claude wrote, so it tests consistency, not truth. Check 3 is the check against the world, and it is not finished until the table above is filled in.
+Check 1 was run by a script that Claude wrote, so it tests consistency, not truth. Check 3 is the check against the world. It was run by Claude re-querying the sources, so it is better than the script, but it is not independent of Claude. Ports and Colorado are not yet rechecked.

@@ -42,7 +42,7 @@ I would drop this if the next border data release showed trucks from Mexico flat
 - Trucks and containers are counted, not weighed or priced.
 - I compared only the 25 ports that report in all eight years, because the number of ports reporting changed from 26 to 41.
 - Colorado is eleven counties in nominal dollars, so part of its growth is inflation.
-- The numbers are recomputed from the data files in this repo and are **not yet compared with the original source sites**. The e-commerce figures were read through a summarized fetch.
+- The numbers are recomputed from the data files in this repo. I compared the e-commerce, border and import figures with the original source sites, and they match. The port and Colorado figures are **not yet rechecked** against their sources (see [../ai-check/](../ai-check/)).
 - The data shows that volumes moved, not why.
 
 ## Evidence and where to check it
