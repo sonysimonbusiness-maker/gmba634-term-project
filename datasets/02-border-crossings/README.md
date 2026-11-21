@@ -21,3 +21,9 @@ Source: US DOT Bureau of Transportation Statistics, Border Crossing Entry Data (
 
 ## AI use
 Claude (an AI assistant) pulled the data through the public API, computed the numbers, drew this chart, and drafted the claim and boxes from them. I review, correct and own the final text. Nothing here is confidential: all data is public.
+
+## Tableau version
+
+![Tableau line chart of inbound trucks from Mexico and Canada, 2016 to 2025. Mexico rises from 5.80 million to 7.59 million. Canada falls from 5.88 million to 5.27 million.](tableau-chart.png)
+
+Built in Tableau from [data.csv](data.csv). The figures are not yet checked against the original BTS source (see [../../ai-check/](../../ai-check/)).
