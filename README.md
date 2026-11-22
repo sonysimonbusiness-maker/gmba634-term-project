@@ -1,35 +1,26 @@
-# Is the US goods supply chain keeping up with what consumers buy?
+# Sony Simon: public datasets and the decisions they help with
 
-This repo holds my GMBA 634 term project: five real public datasets, one chart and one claim for each, on one common question.
+This is a class project for GMBA 634 at Gannon University. It is not paid or client work.
 
-Site: [my live site](https://sonysimonbusiness-maker.github.io/gmba634-term-project/)
+## What I did
+I looked at five public datasets about how goods move and what consumers buy: ports, border trucks and container imports from BTS (the US Bureau of Transportation Statistics), e-commerce share from FRED, and Colorado retail sales. I picked them to ask one question: are freight routes and consumer buying moving together?
 
-## The project package
-1. **Written executive case** (situation, complication, resolution): [case/executive-case.md](case/executive-case.md)
-2. **AI use and output check**, with a script that recomputes every headline figure: [ai-check/](ai-check/)
-3. **Tableau chart** (Mexico and Canada truck crossings, built from the repo data file): [datasets/02-border-crossings/tableau-chart.png](datasets/02-border-crossings/tableau-chart.png)
-4. **This repo and the live site** above link all of it.
+## My datasets
+| Dataset | Publisher | My finding | Page |
+|---|---|---|---|
+| Container volume at US ports | BTS | Container volume at Pacific Coast ports fell 32.4% from 2021 to 2023, from 20.22 million to 13.67 million TEUs. | https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/datasets/port-containers.md |
+| Truck crossings at US borders | BTS | From 2016 to 2025, inbound truck crossings from Mexico rose 30.8%, from 5.80 million to 7.59 million, while crossings from Canada fell 10.4%, from 5.88 million to 5.27 million. | https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/datasets/border-trucks.md |
+| US container imports | BTS | US container imports fell 13.0% from 2022 to 2023, from 28.89 million to 25.13 million TEUs. | https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/datasets/container-imports.md |
+| E-commerce share of retail | FRED (Federal Reserve Bank of St. Louis) | E-commerce rose from 7.7% of US retail sales in Q1 2016 to 17.9% in Q3 2026, a gain of 10.2 percentage points. | https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/datasets/ecommerce-share.md |
+| Retail sales in 11 Colorado counties | Colorado Department of Revenue | Retail sales in 11 Colorado counties rose 69.7% from 2016 to 2025, from $157.05 billion to $266.47 billion. | https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/datasets/colorado-retail.md |
 
-AI use is disclosed in each folder and on the site. Claude drafted the case, charts and site; I own the question, audience and recommendation.
+## How to check my numbers
+Every number in my findings is in https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/analysis/number-trail.md, with the dataset, filter and pivot it came from. My pivot values are saved in the analysis folder as short-name-pivot.csv files.
 
-## Supply side: where goods move
-| # | Claim | Chart |
-|---|-------|-------|
-| 1 | [Container volume at West Coast ports fell 32% from 2021 to 2023, more than the Atlantic (15%) or Gulf (7%).](datasets/01-ports/) | ![Container volume by coast](datasets/01-ports/chart.png) |
-| 2 | [Truck crossings from Mexico rose 31% from 2016 to 2025 while Canada fell 10%.](datasets/02-border-crossings/) | ![Truck crossings by border](datasets/02-border-crossings/chart.png) |
-| 3 | [Container imports fell 13% in 2023 and were back above their 2022 level by 2025.](datasets/03-container-imports/) | ![Container imports by year](datasets/03-container-imports/chart.png) |
+## How I used AI
+Claude, an AI assistant, pulled the data through public interfaces, built the pivot tables with scripts, drew the charts and drafted the pages and findings, while I chose the datasets and the decision questions, built the Tableau chart for the border data, and approve what is published here.
 
-## Demand side: what consumers buy
-| # | Claim | Chart |
-|---|-------|-------|
-| 4 | [E-commerce share of retail rose from 7.7% in 2016 to 17.9% in 2026 and did not return to its 2019 level.](datasets/04-ecommerce-share/) | ![E-commerce share of retail](datasets/04-ecommerce-share/chart.png) |
-| 5 | [Retail sales in 11 Colorado counties grew 70% from 2016 to 2025, but growth has slowed since 2022.](datasets/05-colorado-retail/) | ![Colorado retail sales](datasets/05-colorado-retail/chart.png) |
+## Data notes
+Sources, links, dates and license notes are in https://github.com/sonysimonbusiness-maker/gmba634-term-project/blob/main/data/SOURCES.md. Every dataset is LINK ONLY: the publisher's files are not stored in this repo.
 
-## What the five together say
-Freight volume has moved: away from West Coast ports and toward Gulf and Atlantic ports, and toward the Mexico border. Consumer demand keeps shifting toward online buying while overall retail growth slows. These datasets cannot measure whether capacity is keeping up with demand. Each one shows only one side, so each folder states what its data cannot say.
-
-## What each folder holds
-Each `datasets/` folder has a claim, six story boxes (ask, situation, complication, question, resolution, reversal), a chart, the yearly data where the terms allow, and a data note with its source, licence and limits.
-
-## AI use
-I used Claude (an AI assistant) to pull the data through public APIs, compute the numbers, draw the charts and draft the claims and boxes. I review, correct and own the final text. All data is public; nothing here is confidential. The `archive/` folder holds my earlier work on a course case, which used course-made illustrative data and is not part of this portfolio.
+Site: https://sonysimonbusiness-maker.github.io/gmba634-term-project/
